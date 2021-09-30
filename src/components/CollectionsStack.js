@@ -7,7 +7,14 @@ const Stack = createStackNavigator();
 
 const CoinsStack = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: {
+                    backgroundColor: "black"
+                },
+                headerTintColor: "white"
+            }}
+        >
             <Stack.Screen
                 name="Collection"
                 component={ Collection }
