@@ -1,6 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import Collection from "./Collection";
+import ElementDetail from "./ElementDetail";
 
 const Stack = createStackNavigator();
 
@@ -10,6 +11,10 @@ const CoinsStack = () => {
             <Stack.Screen
                 name="Collection"
                 component={ Collection }
+            />
+            <Stack.Screen
+                name="ElementDetail"
+                component={ ElementDetail }
             />
         </Stack.Navigator>
     );
