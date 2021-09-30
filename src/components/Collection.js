@@ -36,23 +36,11 @@ const Collection = ( props ) => {
         <View
             style={ styles.container }
         >
-            <Text
-                style={ styles.text }
-            >Collection</Text>
-            <Pressable
-                onPress={ handlePress }
-                style={ styles.button }
-            >
-                <Text
-                    style={ styles.buttonText }
-                >Go to Element Detail</Text>
-            </Pressable>
-
             <View>
                 <Text style={ styles.text }>Info</Text>
                 <Text style={ styles.text }>Loading: {loading ? "yes" : "no"}</Text>
                 <Text style={ styles.text }>Datos: {dataRetrieved ? "yes" : "no"}</Text>
-                <Text style={ styles.text }>Error: {error ? "yes" : "no"}</Text>
+                <Text style={ styles.text }>Errores: {error ? "yes" : "no"}</Text>
             </View>
 
             {
