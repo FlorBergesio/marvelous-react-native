@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Pressable, Text, View, StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { Pressable, Text, View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 
 const Collection = ( props ) => {
     const [ loading, setLoading ] = useState( false );
@@ -13,9 +13,9 @@ const Collection = ( props ) => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [ fetchData ]);
 
-    const fetchData = async () => {
+    const fetchData = useCallback( async () => {
         setLoading( true );
         fetch(
             `https://gateway.marvel.com:443/v1/public/${entity}${query.query}?${query.filters}&ts=21212&apikey=3655294fd52f20d004695c7de00c0e2b&hash=526fef0abc4a8b18186b7c54cc0502fa`
@@ -25,7 +25,7 @@ const Collection = ( props ) => {
             .then( () => setLoading( false ) )
             .catch( () => setError( true ) );
         return;
-    };
+    }, [ setLoading, entity, query ] );
 
     const handlePress = () => {
         props.navigation.navigate("ElementDetail");
@@ -48,25 +48,31 @@ const Collection = ( props ) => {
             </Pressable>
 
             <View>
-                <Text>Marvelous</Text>
-                <Text>Loading: {loading ? "yes" : "no"}</Text>
-                <Text>Datos: {dataRetrieved ? "yes" : "no"}</Text>
-                <Text>Error: {error ? "yes" : "no"}</Text>
+                <Text style={ styles.text }>Info</Text>
+                <Text style={ styles.text }>Loading: {loading ? "yes" : "no"}</Text>
+                <Text style={ styles.text }>Datos: {dataRetrieved ? "yes" : "no"}</Text>
+                <Text style={ styles.text }>Error: {error ? "yes" : "no"}</Text>
+            </View>
 
-            </View>
-            <View>
-                { dataRetrieved.length > 0 
-                    ? (
-                        <FlatList
-                            data={ dataRetrieved }
-                            renderItem={ ({ item }) => (
-                            <Text>{ item.name }</Text>
-                            )}
-                        />
-                    )
-                    : <Text>Marvelous</Text>
-                }
-            </View>
+            {
+                loading
+                ? <ActivityIndicator color="#fff" size="large" />
+                : null
+            }
+
+            { dataRetrieved.length > 0 
+                ? (
+                    <FlatList
+                        data={ dataRetrieved }
+                        renderItem={ ({ item }) => (
+                            <View>
+                                <Text style={ styles.text }>{ item.name }</Text>
+                            </View>
+                        )}
+                    />
+                )
+                : <Text>Marvelous</Text>
+            }
         </View>
     );
 };
@@ -74,7 +80,7 @@ const Collection = ( props ) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        /* backgroundColor: "red", */
+        backgroundColor: "red",
         padding: 16
     },
     text: {
