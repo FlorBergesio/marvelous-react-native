@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { Pressable, Text, View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import ElementCard from "./ElementCard";
 
 const Collection = ( props ) => {
     const [ loading, setLoading ] = useState( false );
@@ -27,8 +28,8 @@ const Collection = ( props ) => {
         return;
     }, [ setLoading, entity, query ] );
 
-    const handlePress = () => {
-        props.navigation.navigate("ElementDetail");
+    const handlePress = ( element ) => {
+        props.navigation.navigate("ElementDetail", { element });
     };
 
     return (
@@ -63,11 +64,10 @@ const Collection = ( props ) => {
             { dataRetrieved.length > 0 
                 ? (
                     <FlatList
+                        style={ styles.list }
                         data={ dataRetrieved }
                         renderItem={ ({ item }) => (
-                            <View>
-                                <Text style={ styles.text }>{ item.name }</Text>
-                            </View>
+                            <ElementCard item={ item } onPress={ () => handlePress( item ) } />
                         )}
                     />
                 )
