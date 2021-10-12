@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Pressable, Text, View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
+import { View, StyleSheet, FlatList, ActivityIndicator } from "react-native";
 import ElementCard from "./ElementCard";
 
 const Collection = ( props ) => {
@@ -36,13 +36,6 @@ const Collection = ( props ) => {
         <View
             style={ styles.container }
         >
-            <View>
-                <Text style={ styles.text }>Info</Text>
-                <Text style={ styles.text }>Loading: {loading ? "yes" : "no"}</Text>
-                <Text style={ styles.text }>Datos: {dataRetrieved ? "yes" : "no"}</Text>
-                <Text style={ styles.text }>Errores: {error ? "yes" : "no"}</Text>
-            </View>
-
             {
                 loading
                 ? <ActivityIndicator color="#fff" size="large" />
@@ -59,7 +52,7 @@ const Collection = ( props ) => {
                         )}
                     />
                 )
-                : <Text>Marvelous</Text>
+                : null
             }
         </View>
     );
